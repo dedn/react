@@ -15,24 +15,24 @@ const AddTodo = React.lazy(
 
 function App() {
 
-    const [todos, setTodos] = React.useState([
-        {id:1, completed: false, title: 'TestTitle0'},
-        {id:2, completed: true, title: 'TestTitle1'},
-        {id:3, completed: false, title: 'TestTitle2'}
-    ])
-  // const [todos, setTodos] = React.useState([])
+    // const [todos, setTodos] = React.useState([
+    //     {id:1, completed: false, title: 'TestTitle0'},
+    //     {id:2, completed: true, title: 'TestTitle1'},
+    //     {id:3, completed: false, title: 'TestTitle2'}
+    // ])
+  const [todos, setTodos] = React.useState([])
   const [loading, setLoading] = React.useState(true)
 
-  // useEffect(() => {
-  //   fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-  //     .then(response => response.json())
-  //     .then(todos => {
-  //       setTimeout(() => {
-  //         setTodos(todos)
-  //         setLoading(false)
-  //       }, 2000)
-  //     })
-  // }, [])
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+      .then(response => response.json())
+      .then(todos => {
+        setTimeout(() => {
+          setTodos(todos)
+          setLoading(false)
+        }, 2000)
+      })
+  }, [])
 
   function toggleTodo(id) {
       console.log('click', id)
