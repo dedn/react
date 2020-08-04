@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 src/App.js
 src/Modal/*
+/.git
+/.vscode
+node_modules
