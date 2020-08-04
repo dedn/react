@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
-import TodoList from './Todo/TodoList'
-import Context from './context'
-import Loader from './Loader'
-import Modal from './Modal/Modal'
+import React, {useEffect} from 'react';
+import TodoList from './Todo/TodoList';
+import Context from './context';
+import Loader from './Loader';
+import Modal from './Modal/Modal';
 
 const AddTodo = React.lazy(
   () =>
     new Promise(resolve => {
       setTimeout(() => {
+
+
         resolve(import('./Todo/AddTodo'))
       }, 3000)
     })
@@ -15,11 +17,11 @@ const AddTodo = React.lazy(
 
 function App() {
 
-    // const [todos, setTodos] = React.useState([
-    //     {id:1, completed: false, title: 'TestTitle0'},
-    //     {id:2, completed: true, title: 'TestTitle1'},
-    //     {id:3, completed: false, title: 'TestTitle2'}
-    // ])
+  // const [todos, setTodos] = React.useState([
+  //     {id:1, completed: false, title: 'TestTitle0'},
+  //     {id:2, completed: true, title: 'TestTitle1'},
+  //     {id:3, completed: false, title: 'TestTitle2'}
+  // ])
   const [todos, setTodos] = React.useState([])
   const [loading, setLoading] = React.useState(true)
 
@@ -35,15 +37,17 @@ function App() {
   }, [])
 
   function toggleTodo(id) {
-      console.log('click', id)
-         setTodos(
-             todos.map(todo => {
-                 if (todo.id === id) {
-                     todo.completed = !todo.completed
-                 }
-                 return todo
-             })
-         )
+    console.log('click', id)
+    setTodos(
+      todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed
+        }
+
+
+        return todo
+      })
+    )
 
 
   }
@@ -65,18 +69,18 @@ function App() {
   }
 
   return (
-    <Context.Provider value={{ removeTodo }}>
+    <Context.Provider value={{removeTodo}}>
       <div className='wrapper'>
         <h1>React tutorial</h1>
-        <Modal />
+        <Modal/>
 
-        <React.Suspense fallback={<Loader />}>
-          <AddTodo onCreate={addTodo} />
+        <React.Suspense fallback={<Loader/>}>
+          <AddTodo onCreate={addTodo}/>
         </React.Suspense>
 
-        {loading && <Loader />}
+        {loading && <Loader/>}
         {todos.length ? (
-          <TodoList todos={todos} onToggle={toggleTodo} />
+          <TodoList todos={todos} onToggle={toggleTodo}/>
         ) : loading ? null : (
           <p>No todos!</p>
         )}
@@ -85,4 +89,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
