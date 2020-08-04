@@ -1,59 +1,54 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import TodoList from './Todo/TodoList';
 import Context from './context';
 import Loader from './Loader';
 import Modal from './Modal/Modal';
 
 const AddTodo = React.lazy(
+  /* eslint-disable */
   () =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       setTimeout(() => {
-
-
-        resolve(import('./Todo/AddTodo'))
-      }, 3000)
-    })
-)
+        resolve(import('./Todo/AddTodo')); // eslint-disable-line no-console
+      }, 3000);
+    }),
+  /* eslint-enable */
+);
 
 function App() {
-
   // const [todos, setTodos] = React.useState([
   //     {id:1, completed: false, title: 'TestTitle0'},
   //     {id:2, completed: true, title: 'TestTitle1'},
   //     {id:3, completed: false, title: 'TestTitle2'}
   // ])
-  const [todos, setTodos] = React.useState([])
-  const [loading, setLoading] = React.useState(true)
+  const [todos, setTodos] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-      .then(response => response.json())
-      .then(todos => {
+      .then((response) => response.json())
+      .then((todos) => {
         setTimeout(() => {
-          setTodos(todos)
-          setLoading(false)
-        }, 2000)
-      })
-  }, [])
+          setTodos(todos);
+          setLoading(false);
+        }, 2000);
+      });
+  }, []);
 
   function toggleTodo(id) {
-    console.log('click', id)
+    console.log('click', id);
     setTodos(
-      todos.map(todo => {
+      todos.map((todo) => {
         if (todo.id === id) {
-          todo.completed = !todo.completed
+          todo.completed = !todo.completed;
         }
-
-
-        return todo
-      })
-    )
-
-
+        return todo;
+      }),
+    );
   }
 
   function removeTodo(id) {
-    setTodos(todos.filter(todo => todo.id !== id))
+    setTodos(todos.filter((todo) => todo.id !== id));
   }
 
   function addTodo(title) {
@@ -62,31 +57,31 @@ function App() {
         {
           title,
           id: Date.now(),
-          completed: false
-        }
-      ])
-    )
+          completed: false,
+        },
+      ]),
+    );
   }
 
   return (
-    <Context.Provider value={{removeTodo}}>
-      <div className='wrapper'>
+    <Context.Provider value={{ removeTodo }}>
+      <div className="wrapper">
         <h1>React tutorial</h1>
-        <Modal/>
+        <Modal />
 
-        <React.Suspense fallback={<Loader/>}>
-          <AddTodo onCreate={addTodo}/>
+        <React.Suspense fallback={<Loader />}>
+          <AddTodo onCreate={addTodo} />
         </React.Suspense>
 
-        {loading && <Loader/>}
+        {loading && <Loader />}
         {todos.length ? (
-          <TodoList todos={todos} onToggle={toggleTodo}/>
+          <TodoList todos={todos} onToggle={toggleTodo} />
         ) : loading ? null : (
           <p>No todos!</p>
         )}
       </div>
     </Context.Provider>
-  )
+  );
 }
 
 export default App;
